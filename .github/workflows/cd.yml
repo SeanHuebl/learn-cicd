@@ -18,7 +18,11 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Install Turso CLI
-        run: curl -sSfL https://get.tur.so/install.sh | bash
+        run: |
+          curl -sSfL https://github.com/turso-io/turso/releases/latest/download/turso-linux-amd64 -o turso
+          chmod +x turso
+          mv turso /usr/local/bin/turso
+        
 
       - name: Authenticate with Turso        
         run: turso login --token $DATABASE_API_KEY
