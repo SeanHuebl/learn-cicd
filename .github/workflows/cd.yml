@@ -11,11 +11,18 @@ jobs:
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_API_KEY: ${{ secrets.DATABASE_API_KEY }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
+      - name: Install Turso CLI
+        run: curl -sSL https://get.turso.tech | bash
+
+      - name: Authenticate with Turso        
+        run: turso login --token $DATABASE_API_KEY
+
       - name: Setup goose
         uses: mscno/setup-goose@v1
 
